@@ -15,6 +15,9 @@ public class Constants {
 
     public static final ResponseEntity RESPONSE_UNPROCESSABLE_ENTITY = ResponseEntity.unprocessableEntity().build();
 
+    public static final String TOPIC_VEHICLE = "vehicle";
+    public static final String TOPIC_SENSOR = "sensor";
+
     public static HttpHeaders NO_CACHE_HEADER;
     static {
         Constants.NO_CACHE_HEADER =  new HttpHeaders();
