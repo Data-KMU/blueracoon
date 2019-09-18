@@ -1,0 +1,15 @@
+#Server Config
+server:
+  port: 80
+
+#App at.kara.carinfra.config
+app:
+  production: true
+  enableDebugController: false
+
+spring:
+  kafka:
+    producer:
+      bootstrap-servers: 46.101.136.244:9092
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
