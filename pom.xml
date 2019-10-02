@@ -60,6 +60,11 @@
             <version>LATEST</version>
         </dependency>
 
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>LATEST</version>
+        </dependency>
 
         <!-- https://mvnrepository.com/artifact/org.json/json -->
         <dependency>

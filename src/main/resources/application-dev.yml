@@ -7,6 +7,10 @@ app:
   production: false
   enableDebugController: true
 
+logging:
+  level:
+    root: info
+
 spring:
   kafka:
     producer:
