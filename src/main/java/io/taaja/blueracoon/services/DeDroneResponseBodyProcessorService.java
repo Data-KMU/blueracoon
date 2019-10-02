@@ -56,6 +56,7 @@ public class DeDroneResponseBodyProcessorService {
                     sensorNode = allSensorNode.findValue(sensorId);
                     SensorStatus status = mapper.readValue(mapper.writeValueAsString(((JsonNode)sensorNode)), SensorStatus.class);
                     status.setId(sensorId);
+                    System.out.println(mapper.writeValueAsString(status));
                     kafkaTemplate.send(Constants.TOPIC_VEHICLE, mapper.writeValueAsString(status));
                 }
 

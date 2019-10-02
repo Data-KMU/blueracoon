@@ -61,17 +61,10 @@
         </dependency>
 
 
-
         <!-- https://mvnrepository.com/artifact/org.json/json -->
         <dependency>
             <groupId>org.json</groupId>
             <artifactId>json</artifactId>
-            <version>LATEST</version>
-        </dependency>
-        <!-- https://mvnrepository.com/artifact/org.json/json-simple -->
-        <dependency>
-            <groupId>org.json</groupId>
-            <artifactId>json-simple</artifactId>
             <version>LATEST</version>
         </dependency>
 
@@ -95,7 +88,6 @@
             <artifactId>spring-security-test</artifactId>
             <scope>test</scope>
         </dependency>
-
 
     </dependencies>
 
