@@ -1,4 +1,4 @@
-package at.taaja.blueracoon;
+package io.taaja.blueracoon;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;

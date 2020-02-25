@@ -1,4 +1,4 @@
-package at.taaja.blueracoon;
+package io.taaja.blueracoon;
 
 import io.quarkus.test.junit.NativeImageTest;
 
