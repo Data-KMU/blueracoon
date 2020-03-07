@@ -2,12 +2,12 @@ package io.taaja.blueracoon.model;
 
 public class Coordinates {
     private double longitude;
-    private double altitude;
+    private double latitude;
     private double heading;
 
-    public Coordinates(double longitude, double altitude, double heading) {
+    public Coordinates(double longitude, double latitude, double heading) {
         this.longitude = longitude;
-        this.altitude = altitude;
+        this.latitude = latitude;
         this.heading = heading;
     }
 
@@ -15,7 +15,7 @@ public class Coordinates {
     public String toString() {
         return "Coordinates{" +
                 "longitude=" + longitude +
-                ", altitude=" + altitude +
+                ", latitude=" + latitude +
                 ", heading=" + heading +
                 '}';
     }
@@ -28,12 +28,12 @@ public class Coordinates {
         this.longitude = longitude;
     }
 
-    public double getAltitude() {
-        return altitude;
+    public double getLatitude() {
+        return latitude;
     }
 
-    public void setAltitude(double altitude) {
-        this.altitude = altitude;
+    public void setLatitude(double latitude) {
+        this.latitude = latitude;
     }
 
     public double getHeading() {

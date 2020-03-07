@@ -1,7 +1,5 @@
 package io.taaja.blueracoon.model;
 
-import javax.swing.*;
-
 public class SensorStatus {
     private String id;
     private String detectionType;
