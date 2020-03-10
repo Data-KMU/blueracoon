@@ -40,9 +40,10 @@ public class DeDroneResponseBodyProcessorService {
     public SensorStatus processBodyV3(JsonNode node) {
         if (node.get("channel").asText().equals("alert")) {
             //work in progress
-            return new SensorStatus(node.get("id").asText(), node.get("detectionType").asText(), node.get("channel").asText(),
-                    node.get("protocol").asText(), node.get("version").intValue(), new Coordinates(node.get("coordinates").get("longitude").asDouble(),
-                    node.get("coordinates").get("latitude").asDouble(), node.get("coordinates").get("heading").asDouble()));
+            return null;
+//                    new SensorStatus(node.get("id").asText(), node.get("detectionType").asText(), node.get("channel").asText(),
+//                    node.get("protocol").asText(), node.get("version").intValue(), new Coordinates(node.get("coordinates").get("longitude").asDouble(),
+//                    node.get("coordinates").get("latitude").asDouble(), node.get("coordinates").get("heading").asDouble()));
         }
         return null;
     }
