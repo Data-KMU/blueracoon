@@ -69,6 +69,13 @@
       <artifactId>lombok</artifactId>
       <version>LATEST</version>
     </dependency>
+
+    <dependency>
+      <groupId>org.apache.kafka</groupId>
+      <artifactId>kafka-clients</artifactId>
+      <version>LATEST</version>
+    </dependency>
+
   </dependencies>
   <build>
     <plugins>

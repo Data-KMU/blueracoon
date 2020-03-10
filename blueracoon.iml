@@ -304,6 +304,30 @@
         <SOURCES />
       </library>
     </orderEntry>
+    <orderEntry type="module-library" scope="PROVIDED">
+      <library name="Quarkus (deployment)">
+        <CLASSES>
+          <root url="jar://$MAVEN_REPOSITORY$/io/quarkus/quarkus-resteasy-deployment/1.1.1.Final/quarkus-resteasy-deployment-1.1.1.Final.jar!/" />
+          <root url="jar://$MAVEN_REPOSITORY$/io/quarkus/quarkus-vertx-http-deployment/1.1.1.Final/quarkus-vertx-http-deployment-1.1.1.Final.jar!/" />
+          <root url="jar://$MAVEN_REPOSITORY$/io/quarkus/quarkus-vertx-core-deployment/1.1.1.Final/quarkus-vertx-core-deployment-1.1.1.Final.jar!/" />
+          <root url="jar://$MAVEN_REPOSITORY$/io/quarkus/quarkus-netty-deployment/1.1.1.Final/quarkus-netty-deployment-1.1.1.Final.jar!/" />
+          <root url="jar://$MAVEN_REPOSITORY$/io/quarkus/quarkus-resteasy-server-common-deployment/1.1.1.Final/quarkus-resteasy-server-common-deployment-1.1.1.Final.jar!/" />
+          <root url="jar://$MAVEN_REPOSITORY$/io/quarkus/quarkus-resteasy-common-deployment/1.1.1.Final/quarkus-resteasy-common-deployment-1.1.1.Final.jar!/" />
+          <root url="jar://$MAVEN_REPOSITORY$/io/quarkus/quarkus-kafka-client-deployment/1.1.1.Final/quarkus-kafka-client-deployment-1.1.1.Final.jar!/" />
+          <root url="jar://$MAVEN_REPOSITORY$/io/quarkus/quarkus-resteasy-jackson-deployment/1.1.1.Final/quarkus-resteasy-jackson-deployment-1.1.1.Final.jar!/" />
+          <root url="jar://$MAVEN_REPOSITORY$/io/quarkus/quarkus-jackson-deployment/1.1.1.Final/quarkus-jackson-deployment-1.1.1.Final.jar!/" />
+          <root url="jar://$MAVEN_REPOSITORY$/io/quarkus/quarkus-smallrye-reactive-messaging-kafka-deployment/1.1.1.Final/quarkus-smallrye-reactive-messaging-kafka-deployment-1.1.1.Final.jar!/" />
+          <root url="jar://$MAVEN_REPOSITORY$/io/quarkus/quarkus-smallrye-reactive-messaging-deployment/1.1.1.Final/quarkus-smallrye-reactive-messaging-deployment-1.1.1.Final.jar!/" />
+          <root url="jar://$MAVEN_REPOSITORY$/io/quarkus/quarkus-smallrye-reactive-streams-operators-deployment/1.1.1.Final/quarkus-smallrye-reactive-streams-operators-deployment-1.1.1.Final.jar!/" />
+          <root url="jar://$MAVEN_REPOSITORY$/io/quarkus/quarkus-smallrye-context-propagation-deployment/1.1.1.Final/quarkus-smallrye-context-propagation-deployment-1.1.1.Final.jar!/" />
+          <root url="jar://$MAVEN_REPOSITORY$/io/quarkus/quarkus-config-yaml-deployment/1.1.1.Final/quarkus-config-yaml-deployment-1.1.1.Final.jar!/" />
+          <root url="jar://$MAVEN_REPOSITORY$/io/quarkus/quarkus-scheduler-deployment/1.1.1.Final/quarkus-scheduler-deployment-1.1.1.Final.jar!/" />
+          <root url="jar://$MAVEN_REPOSITORY$/io/quarkus/quarkus-arc-deployment/1.1.1.Final/quarkus-arc-deployment-1.1.1.Final.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
     <orderEntry type="library" name="Maven: io.quarkus:quarkus-resteasy:1.1.1.Final" level="project" />
     <orderEntry type="library" name="Maven: io.quarkus:quarkus-vertx-http:1.1.1.Final" level="project" />
     <orderEntry type="library" name="Maven: io.quarkus.security:quarkus-security:1.0.1.Final" level="project" />
@@ -397,7 +421,6 @@
     <orderEntry type="library" name="Maven: org.jboss.logmanager:jboss-logmanager-embedded:1.0.4" level="project" />
     <orderEntry type="library" name="Maven: org.jboss.logging:jboss-logging-annotations:2.1.0.Final" level="project" />
     <orderEntry type="library" name="Maven: org.jboss.threads:jboss-threads:3.0.0.Final" level="project" />
-    <orderEntry type="library" name="Maven: org.slf4j:slf4j-api:1.7.29" level="project" />
     <orderEntry type="library" name="Maven: org.jboss.slf4j:slf4j-jboss-logging:1.2.0.Final" level="project" />
     <orderEntry type="library" name="Maven: org.graalvm.sdk:graal-sdk:19.2.1" level="project" />
     <orderEntry type="library" name="Maven: org.wildfly.common:wildfly-common:1.5.0.Final-format-001" level="project" />
@@ -417,10 +440,6 @@
     <orderEntry type="library" scope="TEST" name="Maven: javax.xml.bind:jaxb-api:2.3.1" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.apache.sling:org.apache.sling.javax.activation:0.1.0" level="project" />
     <orderEntry type="library" name="Maven: io.quarkus:quarkus-kafka-client:1.1.1.Final" level="project" />
-    <orderEntry type="library" name="Maven: org.apache.kafka:kafka-clients:2.2.1" level="project" />
-    <orderEntry type="library" name="Maven: com.github.luben:zstd-jni:1.3.8-1" level="project" />
-    <orderEntry type="library" name="Maven: org.lz4:lz4-java:1.5.0" level="project" />
-    <orderEntry type="library" name="Maven: org.xerial.snappy:snappy-java:1.1.7.2" level="project" />
     <orderEntry type="library" name="Maven: io.quarkus:quarkus-resteasy-jackson:1.1.1.Final" level="project" />
     <orderEntry type="library" name="Maven: io.quarkus:quarkus-jackson:1.1.1.Final" level="project" />
     <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-databind:2.9.10.2" level="project" />
@@ -495,29 +514,10 @@
     <orderEntry type="library" name="Maven: org.eclipse.microprofile.context-propagation:microprofile-context-propagation-api:1.0.1" level="project" />
     <orderEntry type="library" name="Maven: com.cronutils:cron-utils:9.0.1" level="project" />
     <orderEntry type="library" name="Maven: org.projectlombok:lombok:1.18.12" level="project" />
-    <orderEntry type="module-library" scope="PROVIDED">
-      <library name="Quarkus (deployment)">
-        <CLASSES>
-          <root url="jar://$MAVEN_REPOSITORY$/io/quarkus/quarkus-resteasy-deployment/1.1.1.Final/quarkus-resteasy-deployment-1.1.1.Final.jar!/" />
-          <root url="jar://$MAVEN_REPOSITORY$/io/quarkus/quarkus-vertx-http-deployment/1.1.1.Final/quarkus-vertx-http-deployment-1.1.1.Final.jar!/" />
-          <root url="jar://$MAVEN_REPOSITORY$/io/quarkus/quarkus-vertx-core-deployment/1.1.1.Final/quarkus-vertx-core-deployment-1.1.1.Final.jar!/" />
-          <root url="jar://$MAVEN_REPOSITORY$/io/quarkus/quarkus-netty-deployment/1.1.1.Final/quarkus-netty-deployment-1.1.1.Final.jar!/" />
-          <root url="jar://$MAVEN_REPOSITORY$/io/quarkus/quarkus-resteasy-server-common-deployment/1.1.1.Final/quarkus-resteasy-server-common-deployment-1.1.1.Final.jar!/" />
-          <root url="jar://$MAVEN_REPOSITORY$/io/quarkus/quarkus-resteasy-common-deployment/1.1.1.Final/quarkus-resteasy-common-deployment-1.1.1.Final.jar!/" />
-          <root url="jar://$MAVEN_REPOSITORY$/io/quarkus/quarkus-kafka-client-deployment/1.1.1.Final/quarkus-kafka-client-deployment-1.1.1.Final.jar!/" />
-          <root url="jar://$MAVEN_REPOSITORY$/io/quarkus/quarkus-resteasy-jackson-deployment/1.1.1.Final/quarkus-resteasy-jackson-deployment-1.1.1.Final.jar!/" />
-          <root url="jar://$MAVEN_REPOSITORY$/io/quarkus/quarkus-jackson-deployment/1.1.1.Final/quarkus-jackson-deployment-1.1.1.Final.jar!/" />
-          <root url="jar://$MAVEN_REPOSITORY$/io/quarkus/quarkus-smallrye-reactive-messaging-kafka-deployment/1.1.1.Final/quarkus-smallrye-reactive-messaging-kafka-deployment-1.1.1.Final.jar!/" />
-          <root url="jar://$MAVEN_REPOSITORY$/io/quarkus/quarkus-smallrye-reactive-messaging-deployment/1.1.1.Final/quarkus-smallrye-reactive-messaging-deployment-1.1.1.Final.jar!/" />
-          <root url="jar://$MAVEN_REPOSITORY$/io/quarkus/quarkus-smallrye-reactive-streams-operators-deployment/1.1.1.Final/quarkus-smallrye-reactive-streams-operators-deployment-1.1.1.Final.jar!/" />
-          <root url="jar://$MAVEN_REPOSITORY$/io/quarkus/quarkus-smallrye-context-propagation-deployment/1.1.1.Final/quarkus-smallrye-context-propagation-deployment-1.1.1.Final.jar!/" />
-          <root url="jar://$MAVEN_REPOSITORY$/io/quarkus/quarkus-config-yaml-deployment/1.1.1.Final/quarkus-config-yaml-deployment-1.1.1.Final.jar!/" />
-          <root url="jar://$MAVEN_REPOSITORY$/io/quarkus/quarkus-scheduler-deployment/1.1.1.Final/quarkus-scheduler-deployment-1.1.1.Final.jar!/" />
-          <root url="jar://$MAVEN_REPOSITORY$/io/quarkus/quarkus-arc-deployment/1.1.1.Final/quarkus-arc-deployment-1.1.1.Final.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
+    <orderEntry type="library" name="Maven: org.apache.kafka:kafka-clients:2.4.0" level="project" />
+    <orderEntry type="library" name="Maven: com.github.luben:zstd-jni:1.4.3-1" level="project" />
+    <orderEntry type="library" name="Maven: org.lz4:lz4-java:1.6.0" level="project" />
+    <orderEntry type="library" name="Maven: org.xerial.snappy:snappy-java:1.1.7.3" level="project" />
+    <orderEntry type="library" name="Maven: org.slf4j:slf4j-api:1.7.29" level="project" />
   </component>
 </module>

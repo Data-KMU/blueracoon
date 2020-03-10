@@ -11,5 +11,4 @@ public class SensorStatus {
     private int version;
     private Coordinates coordinates;
 
-
 }

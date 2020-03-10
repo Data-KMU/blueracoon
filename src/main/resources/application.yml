@@ -1,0 +1,12 @@
+kafka:
+  bootstrap-servers: "46.101.136.244:9092"
+  topic: "sensor"
+
+quarkus:
+  http:
+    port: 80
+
+"%dev":
+  quarkus:
+    http:
+      port: 8080
