@@ -6,7 +6,6 @@ import org.apache.kafka.common.serialization.Serializer;
 
 @JBossLog
 public class CoordinateSerializer implements Serializer {
-
     @Override
     public byte[] serialize(String topic, Object data) {
         byte[] retVal = null;

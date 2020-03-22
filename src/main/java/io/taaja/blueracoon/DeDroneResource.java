@@ -1,7 +1,7 @@
 package io.taaja.blueracoon;
 
 import io.quarkus.scheduler.Scheduled;
-import io.taaja.blueracoon.kafkaio.ProducerService;
+// import io.taaja.blueracoon.kafkaio.ProducerService;
 import io.taaja.blueracoon.model.Coordinates;
 import io.taaja.blueracoon.model.SensorStatus;
 import lombok.extern.jbosslog.JBossLog;
@@ -20,14 +20,15 @@ A simple resource retrieving the in-memory "sensor-data-stream" and sending the 
 @JBossLog
 public class DeDroneResource {
 
-    @Inject
-    ProducerService producerService;
+    // @Inject
+    // ProducerService producerService;
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     public Response sensorServer(SensorStatus sensorStatus){
-
-        producerService.publishCoordinates(sensorStatus.getCoordinates());
+        System.out.println(sensorStatus.toString());
+        // System.out.println(sensorStatus.getData().getAffectedSensors().getSensor().getCoordinates());
+        // producerService.publishCoordinates(sensorStatus.getCoordinates());
 
         return Response.ok().build();
     }
@@ -45,18 +46,8 @@ public class DeDroneResource {
     }
 
     @GET
-    @Produces(MediaType.APPLICATION_JSON)
-    public SensorStatus test(){
-        SensorStatus testStatus = new SensorStatus();
-        testStatus.setId(UUID.randomUUID().toString());
-        testStatus.setChannel("ch1");
-        Coordinates coordinates = new Coordinates();
-        coordinates.setLongitude(14.6846984);
-        coordinates.setLatitude(47.54684);
-        coordinates.setHeight(132);
-        testStatus.setCoordinates(coordinates);
-        return testStatus;
+    @Produces(MediaType.TEXT_PLAIN)
+    public String test(){
+        return "hello";
     }
-
-
 }

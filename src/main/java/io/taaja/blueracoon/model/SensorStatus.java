@@ -1,14 +1,12 @@
 package io.taaja.blueracoon.model;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import lombok.Data;
 
 @Data
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class SensorStatus {
-    private String id;
-    private String detectionType;
     private String channel;
-    private String protocol;
     private int version;
-    private Coordinates coordinates;
-
+    private Daten data;
 }
