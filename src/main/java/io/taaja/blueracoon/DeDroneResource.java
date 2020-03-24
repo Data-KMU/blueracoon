@@ -2,6 +2,7 @@ package io.taaja.blueracoon;
 
 import io.quarkus.scheduler.Scheduled;
 // import io.taaja.blueracoon.kafkaio.ProducerService;
+import io.taaja.blueracoon.kafkaio.ProducerService;
 import io.taaja.blueracoon.model.Coordinates;
 import io.taaja.blueracoon.model.SensorStatus;
 import lombok.extern.jbosslog.JBossLog;
@@ -20,8 +21,8 @@ A simple resource retrieving the in-memory "sensor-data-stream" and sending the 
 @JBossLog
 public class DeDroneResource {
 
-    // @Inject
-    // ProducerService producerService;
+     @Inject
+     ProducerService producerService;
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
@@ -46,8 +47,17 @@ public class DeDroneResource {
     }
 
     @GET
-    @Produces(MediaType.TEXT_PLAIN)
-    public String test(){
-        return "hello";
+    @Produces(MediaType.APPLICATION_JSON)
+    public Coordinates test(){
+
+        Coordinates coordinates = new Coordinates();
+        coordinates.setAltitude(123);
+        coordinates.setLatitude(456);
+        coordinates.setLongitude(789);
+
+        producerService.publishCoordinates(coordinates);
+
+        return coordinates;
+
     }
 }

@@ -1,0 +1,18 @@
+kafka:
+  bootstrap-servers: "46.101.136.244:9092"
+
+purple-tiger:
+  url: "http://purpletiger:8093/v1/encode"
+
+quarkus:
+  http:
+    port: 8090
+    cors: true
+
+"%dev":
+  purple-tiger:
+    url: "http://localhost:8093/v1/encode"
+
+"%test":
+  purple-tiger:
+    url: "http://localhost:8093/v1/encode"
