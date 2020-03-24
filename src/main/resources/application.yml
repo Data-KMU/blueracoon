@@ -4,9 +4,6 @@ kafka:
 
 quarkus:
   http:
-    port: 80
+    port: 8090
 
 "%dev":
-  quarkus:
-    http:
-      port: 8080
