@@ -1,4 +1,4 @@
-package io.taaja.blueracoon.model;
+package io.taaja.blueracoon.model.dedrone;
 
 import lombok.Data;
 

@@ -1,4 +1,4 @@
-package io.taaja.blueracoon.model;
+package io.taaja.blueracoon.model.dedrone;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.util.ArrayList;
 
@@ -10,6 +10,6 @@ public class Daten {
     private String alertId;
     private String alertState;
     private ArrayList<Detection> detections;
-    private AffectedSensors affectedSensors;
+    private AffectedSensor affectedSensor;
     private String version;
 }

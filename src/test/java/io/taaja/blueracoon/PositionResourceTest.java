@@ -1,8 +1,6 @@
 package io.taaja.blueracoon;
 
 import io.quarkus.test.junit.QuarkusTest;
-import io.taaja.blueracoon.model.SensorStatus;
-import org.junit.jupiter.api.Test;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.CoreMatchers.is;

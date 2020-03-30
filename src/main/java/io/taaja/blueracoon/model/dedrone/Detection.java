@@ -1,5 +1,6 @@
-package io.taaja.blueracoon.model;
-import java.util.ArrayList;
+package io.taaja.blueracoon.model.dedrone;
+import java.util.List;
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import lombok.Data;
@@ -7,9 +8,9 @@ import lombok.Data;
 @Data
 @JsonIgnoreProperties({"positions"})
 public class Detection {
-    private String detectionType;
+    private DetectionType detectionType;
     private int level;
-    private ArrayList<String> sensors;
+    private List<String> sensors;
     private Identification identification;
-    private String detectionId;
+    private int detectionId;
 }

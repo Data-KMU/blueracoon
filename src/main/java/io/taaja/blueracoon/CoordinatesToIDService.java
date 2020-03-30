@@ -3,8 +3,8 @@ package io.taaja.blueracoon;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.quarkus.runtime.StartupEvent;
-import io.taaja.blueracoon.model.Coordinates;
-import io.taaja.blueracoon.model.IdData;
+import io.taaja.blueracoon.model.dedrone.Coordinates;
+import io.taaja.models.zoning.LocationInformation;
 import lombok.SneakyThrows;
 import lombok.extern.jbosslog.JBossLog;
 import org.apache.http.HttpResponse;
@@ -17,7 +17,6 @@ import org.eclipse.microprofile.config.inject.ConfigProperty;
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.event.Observes;
 import javax.ws.rs.NotAllowedException;
-import java.io.*;
 
 
 @ApplicationScoped
@@ -50,12 +49,12 @@ public class CoordinatesToIDService {
             throw new NotAllowedException("cant resolve coordinates");
         }
 
-        IdData idData = objectMapper.readValue(
+        LocationInformation idData = objectMapper.readValue(
                 response.getEntity().getContent(),
-                IdData.class
+                LocationInformation.class
         );
 
-        return idData.getExtensions().get(0).getUuid();
+        return idData.getExtensions().get(0).getId();
     }
 
 }

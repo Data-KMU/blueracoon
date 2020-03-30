@@ -3,7 +3,7 @@ package io.taaja.blueracoon.kafkaio;
 import io.quarkus.runtime.ShutdownEvent;
 import io.quarkus.runtime.StartupEvent;
 import io.taaja.blueracoon.CoordinatesToIDService;
-import io.taaja.blueracoon.model.Coordinates;
+import io.taaja.blueracoon.model.dedrone.Coordinates;
 import lombok.extern.jbosslog.JBossLog;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.Producer;
