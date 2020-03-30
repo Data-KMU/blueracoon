@@ -1,15 +1,14 @@
-package io.taaja.blueracoon.model.dedrone;
+package io.taaja.blueracoon.model;
 
 import com.fasterxml.jackson.annotation.JsonValue;
 
-public enum DetectionType {
+public enum MessageChannel {
 
-    Remote("remote"),
-    Drone("drone");
+    Alert("alert");
 
     private final String value;
 
-    DetectionType(String value) {
+    MessageChannel(String value) {
         this.value = value;
     }
 
@@ -17,5 +16,6 @@ public enum DetectionType {
     public String getValue() {
         return value;
     }
+
 
 }

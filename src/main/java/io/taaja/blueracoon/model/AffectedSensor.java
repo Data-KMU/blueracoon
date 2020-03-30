@@ -1,5 +1,6 @@
-package io.taaja.blueracoon.model.dedrone;
+package io.taaja.blueracoon.model;
 
+import io.taaja.models.generic.Coordinates;
 import lombok.Data;
 
 @Data

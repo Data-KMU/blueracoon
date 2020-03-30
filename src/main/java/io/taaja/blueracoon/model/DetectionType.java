@@ -1,15 +1,15 @@
-package io.taaja.blueracoon.model.dedrone;
+package io.taaja.blueracoon.model;
 
 import com.fasterxml.jackson.annotation.JsonValue;
 
-public enum ChannelType {
+public enum DetectionType {
 
-    Wifi("wifi"),
-    Radio("radio");
+    Remote("remote"),
+    Drone("drone");
 
     private final String value;
 
-    ChannelType(String value) {
+    DetectionType(String value) {
         this.value = value;
     }
 
@@ -17,6 +17,5 @@ public enum ChannelType {
     public String getValue() {
         return value;
     }
-
 
 }

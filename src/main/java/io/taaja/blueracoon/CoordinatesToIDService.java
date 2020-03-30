@@ -3,7 +3,7 @@ package io.taaja.blueracoon;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.quarkus.runtime.StartupEvent;
-import io.taaja.blueracoon.model.dedrone.Coordinates;
+import io.taaja.models.generic.Coordinates;
 import io.taaja.models.zoning.LocationInformation;
 import lombok.SneakyThrows;
 import lombok.extern.jbosslog.JBossLog;
@@ -49,12 +49,12 @@ public class CoordinatesToIDService {
             throw new NotAllowedException("cant resolve coordinates");
         }
 
-        LocationInformation idData = objectMapper.readValue(
+        LocationInformation locationInformation = objectMapper.readValue(
                 response.getEntity().getContent(),
                 LocationInformation.class
         );
 
-        return idData.getExtensions().get(0).getId();
+        return locationInformation.getExtensions().get(0).getId();
     }
 
 }

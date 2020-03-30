@@ -1,14 +1,15 @@
-package io.taaja.blueracoon.model.dedrone;
+package io.taaja.blueracoon.model;
 
 import com.fasterxml.jackson.annotation.JsonValue;
 
-public enum MessageChannel {
+public enum ChannelType {
 
-    Alert("alert");
+    Wifi("wifi"),
+    Radio("radio");
 
     private final String value;
 
-    MessageChannel(String value) {
+    ChannelType(String value) {
         this.value = value;
     }
 

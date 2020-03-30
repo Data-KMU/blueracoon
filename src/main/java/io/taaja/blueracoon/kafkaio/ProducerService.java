@@ -3,7 +3,7 @@ package io.taaja.blueracoon.kafkaio;
 import io.quarkus.runtime.ShutdownEvent;
 import io.quarkus.runtime.StartupEvent;
 import io.taaja.blueracoon.CoordinatesToIDService;
-import io.taaja.blueracoon.model.dedrone.Coordinates;
+import io.taaja.models.kafka.update.actuator.PositionUpdate;
 import lombok.extern.jbosslog.JBossLog;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.Producer;
@@ -25,7 +25,7 @@ public class ProducerService {
     @Inject
     CoordinatesToIDService coordinatesToIDService;
 
-    private static Producer<Long, Coordinates> kafkaProducer;
+    private static Producer<Long, PositionUpdate> kafkaProducer;
 
     @ConfigProperty(name = "kafka.bootstrap-servers")
     public String bootstrapServers = "46.101.136.244:9092";
@@ -35,7 +35,7 @@ public class ProducerService {
         producerProperties.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServers);
         producerProperties.put(ProducerConfig.CLIENT_ID_CONFIG, UUID.randomUUID().toString());
 
-        this.kafkaProducer = new KafkaProducer<Long, Coordinates>(producerProperties, new LongSerializer(), new CoordinateSerializer());
+        this.kafkaProducer = new KafkaProducer<Long, PositionUpdate>(producerProperties, new LongSerializer(), new PositionSerializer());
     }
 
     void onStop(@Observes ShutdownEvent ev) {
@@ -45,11 +45,22 @@ public class ProducerService {
 
 
 
-    public void publishCoordinates(Coordinates coordinates){
+    public void publishCoordinates(PositionUpdate positionUpdate){
+        String uui;
+        try{
+            //if purple tiger is offline
+            uui = coordinatesToIDService.encode(positionUpdate.getPosition());
+        }catch (Exception e){
+            //.. use default
+            uui = "c56b3543-6853-4d86-a7bc-1cde673a5582";
+            log.error("purple tiger cant be reached", e);
+
+        }
+
         this.kafkaProducer.send(
             new ProducerRecord<>(
-                    "vehicle-data-" + coordinatesToIDService.encode(coordinates),
-                    coordinates
+                    "vehicle-data-" + uui,
+                    positionUpdate
             )
         );
     }

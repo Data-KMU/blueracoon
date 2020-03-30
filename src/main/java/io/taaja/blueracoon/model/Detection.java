@@ -1,4 +1,4 @@
-package io.taaja.blueracoon.model.dedrone;
+package io.taaja.blueracoon.model;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
