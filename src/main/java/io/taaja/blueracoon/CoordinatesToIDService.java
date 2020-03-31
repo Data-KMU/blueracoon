@@ -54,7 +54,7 @@ public class CoordinatesToIDService {
                 LocationInformation.class
         );
 
-        return locationInformation.getExtensions().get(0).getId();
+        return locationInformation.getExtensions().get(0).getUuid();
     }
 
 }

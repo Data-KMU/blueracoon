@@ -19,7 +19,7 @@ import java.util.UUID;
 A simple resource retrieving the in-memory "sensor-data-stream" and sending the items as server-sent events.
  */
 
-@Path("/dedrone")
+@Path("/v1/dedrone")
 @JBossLog
 public class DeDroneResource {
 
@@ -30,28 +30,35 @@ public class DeDroneResource {
     @Consumes(MediaType.APPLICATION_JSON)
     public Response sensorServer(DeDroneMessage deDroneMessage){
 
-        producerService.publishCoordinates(
-                new PositionUpdate(
-                        deDroneMessage.getData().getAffectedSensors().entrySet().iterator().next().getValue().getCoordinates()
-        ));
+        //deDroneMessage welche Drohnen ID?
+        String vehicleId = this.getVehicleIdFromDeDroneMessage(deDroneMessage);
+
+        producerService.publishCoordinatesFromVehicle(
+            vehicleId,
+            deDroneMessage.getData().getAffectedSensors().entrySet().iterator().next().getValue().getCoordinates()
+        );
 
         return Response.ok().build();
+    }
+
+    private String getVehicleIdFromDeDroneMessage(DeDroneMessage deDroneMessage) {
+        //todo
+        //return default id
+        return "4c09c738-7a20-4eb6-8b85-1ca13c6453d1";
     }
 
 
     @SneakyThrows
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public String test(){
-
+    public PartialUpdate test(){
 
         PartialUpdate partialUpdate = new PartialUpdate();
 
-
         Coordinates coordinates = new Coordinates();
-        coordinates.setAltitude(123);
-        coordinates.setLatitude(456);
-        coordinates.setLongitude(789);
+        coordinates.setAltitude(100.0f);
+        coordinates.setLatitude(43.123123f);
+        coordinates.setLongitude(14.432432f);
 
 
         PositionUpdate positionUpdate = new PositionUpdate();
@@ -59,7 +66,7 @@ public class DeDroneResource {
         //partialUpdate.getActuators().put(UUID.randomUUID().toString(), coordinates);
         partialUpdate.getActuators().put(UUID.randomUUID().toString(), positionUpdate);
 
-        return partialUpdate.toString();
+        return partialUpdate;
 
     }
 }

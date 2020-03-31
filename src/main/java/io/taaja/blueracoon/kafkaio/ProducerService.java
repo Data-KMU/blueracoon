@@ -2,7 +2,11 @@ package io.taaja.blueracoon.kafkaio;
 
 import io.quarkus.runtime.ShutdownEvent;
 import io.quarkus.runtime.StartupEvent;
+import io.taaja.Constants;
 import io.taaja.blueracoon.CoordinatesToIDService;
+import io.taaja.messaging.JacksonSerializer;
+import io.taaja.models.generic.Coordinates;
+import io.taaja.models.kafka.update.PartialUpdate;
 import io.taaja.models.kafka.update.actuator.PositionUpdate;
 import lombok.extern.jbosslog.JBossLog;
 import org.apache.kafka.clients.producer.KafkaProducer;
@@ -25,7 +29,7 @@ public class ProducerService {
     @Inject
     CoordinatesToIDService coordinatesToIDService;
 
-    private static Producer<Long, PositionUpdate> kafkaProducer;
+    private static Producer<Long, PartialUpdate> kafkaProducer;
 
     @ConfigProperty(name = "kafka.bootstrap-servers")
     public String bootstrapServers = "46.101.136.244:9092";
@@ -35,7 +39,7 @@ public class ProducerService {
         producerProperties.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServers);
         producerProperties.put(ProducerConfig.CLIENT_ID_CONFIG, UUID.randomUUID().toString());
 
-        this.kafkaProducer = new KafkaProducer<Long, PositionUpdate>(producerProperties, new LongSerializer(), new PositionSerializer());
+        this.kafkaProducer = new KafkaProducer(producerProperties, new LongSerializer(), new JacksonSerializer());
     }
 
     void onStop(@Observes ShutdownEvent ev) {
@@ -44,24 +48,27 @@ public class ProducerService {
     }
 
 
-
-    public void publishCoordinates(PositionUpdate positionUpdate){
-        String uui;
+    public void publishCoordinatesFromVehicle(String vehicleUUID, Coordinates coordinates) {
+        String areaUUID;
         try{
             //if purple tiger is offline
-            uui = coordinatesToIDService.encode(positionUpdate.getPosition());
+            areaUUID = coordinatesToIDService.encode(coordinates);
         }catch (Exception e){
             //.. use default
-            uui = "c56b3543-6853-4d86-a7bc-1cde673a5582";
+            areaUUID = "c56b3543-6853-4d86-a7bc-1cde673a5582";
             log.error("purple tiger cant be reached", e);
 
         }
 
         this.kafkaProducer.send(
             new ProducerRecord<>(
-                    "vehicle-data-" + uui,
-                    positionUpdate
+                Constants.KAFKA_AREA_TOPIC_PREFIX + areaUUID,
+                new PartialUpdate(
+                        vehicleUUID,
+                        new PositionUpdate(coordinates)
+                )
             )
         );
+
     }
 }
