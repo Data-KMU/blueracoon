@@ -4,8 +4,8 @@ package io.taaja.blueracoon;
 import io.taaja.blueracoon.kafkaio.ProducerService;
 import io.taaja.blueracoon.model.DeDroneMessage;
 import io.taaja.models.generic.Coordinates;
-import io.taaja.models.kafka.update.PartialUpdate;
-import io.taaja.models.kafka.update.actuator.PositionUpdate;
+import io.taaja.models.spatial.data.update.PartialUpdate;
+import io.taaja.models.spatial.data.update.actuator.PositionUpdate;
 import lombok.SneakyThrows;
 import lombok.extern.jbosslog.JBossLog;
 
@@ -15,16 +15,12 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.UUID;
 
-/*
-A simple resource retrieving the in-memory "sensor-data-stream" and sending the items as server-sent events.
- */
-
-@Path("/v1/dedrone")
 @JBossLog
+@Path("/v1/dedrone")
 public class DeDroneResource {
 
-     @Inject
-     ProducerService producerService;
+    @Inject
+    ProducerService producerService;
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
@@ -63,7 +59,6 @@ public class DeDroneResource {
 
         PositionUpdate positionUpdate = new PositionUpdate();
         positionUpdate.setPosition(coordinates);
-        //partialUpdate.getActuators().put(UUID.randomUUID().toString(), coordinates);
         partialUpdate.getActuators().put(UUID.randomUUID().toString(), positionUpdate);
 
         return partialUpdate;
