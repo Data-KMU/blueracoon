@@ -1,3 +1,6 @@
+app:
+  database: "taaja"
+
 kafka:
   bootstrap-servers: "46.101.136.244:9092"
 
@@ -8,11 +11,28 @@ quarkus:
   http:
     port: 8090
     cors: true
+  mongodb:
+    connection-string: mongodb://taaja-mongodb:27017
+
 
 "%dev":
+  app:
+    database: "dev-taaja"
+
   purple-tiger:
     url: "http://localhost:8093/v1/encode"
 
+  quarkus:
+    mongodb:
+      connection-string: mongodb://localhost:27017
+
 "%test":
+  app:
+    database: "test-taaja"
+
   purple-tiger:
     url: "http://localhost:8093/v1/encode"
+
+  quarkus:
+    mongodb:
+      connection-string: mongodb://localhost:27017

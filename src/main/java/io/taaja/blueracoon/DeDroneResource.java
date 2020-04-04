@@ -8,6 +8,7 @@ import io.taaja.models.spatial.data.update.PartialUpdate;
 import io.taaja.models.spatial.data.update.actuator.PositionUpdate;
 import lombok.SneakyThrows;
 import lombok.extern.jbosslog.JBossLog;
+import org.checkerframework.checker.index.qual.IndexFor;
 
 import javax.inject.Inject;
 import javax.ws.rs.*;
@@ -21,6 +22,9 @@ public class DeDroneResource {
 
     @Inject
     ProducerService producerService;
+
+    @Inject
+    DeDroneLogRepository deDroneLogRepository;
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
@@ -43,25 +47,16 @@ public class DeDroneResource {
         return "4c09c738-7a20-4eb6-8b85-1ca13c6453d1";
     }
 
+    @POST
+    @Path("/log")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response sensorServerWithLog(DeDroneMessage deDroneMessage){
 
-    @SneakyThrows
-    @GET
-    @Produces(MediaType.APPLICATION_JSON)
-    public PartialUpdate test(){
+        //log message
+        log.info("new message:  " + deDroneMessage.toString());
+        this.deDroneLogRepository.insertOne(deDroneMessage);
 
-        PartialUpdate partialUpdate = new PartialUpdate();
-
-        Coordinates coordinates = new Coordinates();
-        coordinates.setAltitude(100.0f);
-        coordinates.setLatitude(43.123123f);
-        coordinates.setLongitude(14.432432f);
-
-
-        PositionUpdate positionUpdate = new PositionUpdate();
-        positionUpdate.setPosition(coordinates);
-        partialUpdate.getActuators().put(UUID.randomUUID().toString(), positionUpdate);
-
-        return partialUpdate;
-
+        return this.sensorServer(deDroneMessage);
     }
+
 }

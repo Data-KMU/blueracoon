@@ -1,8 +1,9 @@
 package io.taaja.blueracoon.model;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import java.util.ArrayList;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
+
+import java.util.ArrayList;
 
 @Data
 @JsonIgnoreProperties({"directions", "zones"})
