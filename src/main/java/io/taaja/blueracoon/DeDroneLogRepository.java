@@ -21,15 +21,15 @@ public class DeDroneLogRepository {
     @ConfigProperty(name = "app.database")
     public String database;
 
-    private JacksonMongoCollection<DeDroneLogMessage> deDroneLogMessageJacksonMongoCollection;
+    private JacksonMongoCollection<Object> deDroneLogMessageJacksonMongoCollection;
 
     void onStart(@Observes StartupEvent ev) {
         deDroneLogMessageJacksonMongoCollection = JacksonMongoCollection
                 .builder()
-                .build(this.mongoClient, this.database, "deDroneLog", DeDroneLogMessage.class);
+                .build(this.mongoClient, this.database, "deDroneLog", Object.class);
     }
 
-    public void insertOne(DeDroneMessage deDroneMessage){
-        this.deDroneLogMessageJacksonMongoCollection.insertOne(new DeDroneLogMessage(deDroneMessage));
+    public void insertOne(Object deDroneMessage){
+        this.deDroneLogMessageJacksonMongoCollection.insertOne(deDroneMessage);
     }
 }

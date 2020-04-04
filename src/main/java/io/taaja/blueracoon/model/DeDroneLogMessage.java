@@ -11,7 +11,7 @@ public class DeDroneLogMessage {
 
     @Id
     private String id;
-    private DeDroneMessage originalDeDroneMessage;
+    private Object originalDeDroneMessage;
     private Date created;
 
     public DeDroneLogMessage(){
@@ -19,7 +19,7 @@ public class DeDroneLogMessage {
         this.created = new Date();
     }
 
-    public DeDroneLogMessage(DeDroneMessage deDroneMessage){
+    public DeDroneLogMessage(Object deDroneMessage){
         this.setOriginalDeDroneMessage(deDroneMessage);
     }
 

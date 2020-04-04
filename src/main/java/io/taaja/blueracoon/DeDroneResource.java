@@ -1,6 +1,8 @@
 package io.taaja.blueracoon;
 
 // import io.taaja.blueracoon.kafkaio.ProducerService;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import io.quarkus.runtime.StartupEvent;
 import io.taaja.blueracoon.kafkaio.ProducerService;
 import io.taaja.blueracoon.model.DeDroneMessage;
 import io.taaja.models.generic.Coordinates;
@@ -9,7 +11,9 @@ import io.taaja.models.spatial.data.update.actuator.PositionUpdate;
 import lombok.SneakyThrows;
 import lombok.extern.jbosslog.JBossLog;
 import org.checkerframework.checker.index.qual.IndexFor;
+import org.mongojack.JacksonMongoCollection;
 
+import javax.enterprise.event.Observes;
 import javax.inject.Inject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -25,6 +29,12 @@ public class DeDroneResource {
 
     @Inject
     DeDroneLogRepository deDroneLogRepository;
+    private ObjectMapper objectMapper;
+
+
+    void onStart(@Observes StartupEvent ev) {
+        this.objectMapper = new ObjectMapper();
+    }
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
@@ -41,22 +51,23 @@ public class DeDroneResource {
         return Response.ok().build();
     }
 
+    @POST
+    @Path("/log")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response sensorServerWithLog(Object rawDeDroneMessage){
+
+        //log message
+        this.deDroneLogRepository.insertOne(rawDeDroneMessage);
+
+        DeDroneMessage deDroneMessage = this.objectMapper.convertValue(rawDeDroneMessage, DeDroneMessage.class);
+
+        return this.sensorServer(deDroneMessage);
+    }
+
     private String getVehicleIdFromDeDroneMessage(DeDroneMessage deDroneMessage) {
         //todo
         //return default id
         return "4c09c738-7a20-4eb6-8b85-1ca13c6453d1";
-    }
-
-    @POST
-    @Path("/log")
-    @Consumes(MediaType.APPLICATION_JSON)
-    public Response sensorServerWithLog(DeDroneMessage deDroneMessage){
-
-        //log message
-        log.info("new message:  " + deDroneMessage.toString());
-        this.deDroneLogRepository.insertOne(deDroneMessage);
-
-        return this.sensorServer(deDroneMessage);
     }
 
 }
