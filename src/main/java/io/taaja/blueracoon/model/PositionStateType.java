@@ -2,14 +2,13 @@ package io.taaja.blueracoon.model;
 
 import com.fasterxml.jackson.annotation.JsonValue;
 
-public enum AlertStateType {
+public enum PositionStateType {
 
-    Start("start"),
-    Update("update");
+    Alive("ALIVE");
 
     private final String value;
 
-    AlertStateType(String value) {
+    PositionStateType(String value) {
         this.value = value;
     }
 
@@ -17,5 +16,7 @@ public enum AlertStateType {
     public String getValue() {
         return value;
     }
+
+
 
 }

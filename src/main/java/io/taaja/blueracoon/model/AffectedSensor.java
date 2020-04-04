@@ -7,5 +7,5 @@ import lombok.Data;
 public class AffectedSensor {
     private ChannelType type;
     private Coordinates coordinates;
-    private int heading;
+    private float heading;
 }

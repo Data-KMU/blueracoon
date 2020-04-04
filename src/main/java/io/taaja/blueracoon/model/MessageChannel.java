@@ -4,7 +4,8 @@ import com.fasterxml.jackson.annotation.JsonValue;
 
 public enum MessageChannel {
 
-    Alert("alert");
+    Alert("alert"),
+    Status("status");
 
     private final String value;
 

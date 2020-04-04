@@ -43,10 +43,19 @@ public class DeDroneResource {
         //deDroneMessage welche Drohnen ID?
         String vehicleId = this.getVehicleIdFromDeDroneMessage(deDroneMessage);
 
-//        producerService.publishCoordinatesFromVehicle(
-//            vehicleId,
-//            deDroneMessage.getData().getAffectedSensors().entrySet().iterator().next().getValue().getCoordinates()
-//        );
+        //todo: rework
+        Coordinates fromDeDroneMessage = deDroneMessage.getCoordinates();
+
+        if(fromDeDroneMessage == null) {
+            log.info("DeDrone Message without Position was skipped");
+        }else{
+            log.info("Publish DeDrone Coordinates");
+            producerService.publishCoordinatesFromVehicle(
+                vehicleId,
+                fromDeDroneMessage
+            );
+
+        }
 
         return Response.ok().build();
     }

@@ -1,6 +1,6 @@
 package io.taaja.blueracoon.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import io.taaja.models.generic.Coordinates;
 import lombok.Data;
 
 import java.util.List;
@@ -9,8 +9,9 @@ import java.util.List;
 public class Detection {
     private DetectionType detectionType;
     private int level;
+    private List<Coordinates> positions;
     private List<String> sensors;
     private Identification identification;
     private int detectionId;
-    private Object positions;
+    private PositionStateType positionState;
 }
