@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.Map;
 
 @Data
-@JsonIgnoreProperties({"zones"})
 public class MessageData {
 
     private String alertId;
@@ -16,6 +15,5 @@ public class MessageData {
     private Map<String, List<Direction>> directions;
     private Map<String, AffectedSensor> affectedSensors;
     private String version;
-
-
+    private Object zones;
 }

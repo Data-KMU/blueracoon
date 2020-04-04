@@ -6,11 +6,11 @@ import lombok.Data;
 import java.util.List;
 
 @Data
-@JsonIgnoreProperties({"positions"})
 public class Detection {
     private DetectionType detectionType;
     private int level;
     private List<String> sensors;
     private Identification identification;
     private int detectionId;
+    private Object positions;
 }

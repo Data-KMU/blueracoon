@@ -43,10 +43,10 @@ public class DeDroneResource {
         //deDroneMessage welche Drohnen ID?
         String vehicleId = this.getVehicleIdFromDeDroneMessage(deDroneMessage);
 
-        producerService.publishCoordinatesFromVehicle(
-            vehicleId,
-            deDroneMessage.getData().getAffectedSensors().entrySet().iterator().next().getValue().getCoordinates()
-        );
+//        producerService.publishCoordinatesFromVehicle(
+//            vehicleId,
+//            deDroneMessage.getData().getAffectedSensors().entrySet().iterator().next().getValue().getCoordinates()
+//        );
 
         return Response.ok().build();
     }
