@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonValue;
 public enum ChannelType {
 
     Wifi("wifi"),
+    RadioBox("radiobox"),
     Radio("radio");
 
     private final String value;

@@ -14,4 +14,6 @@ public class Detection {
     private Identification identification;
     private int detectionId;
     private PositionStateType positionState;
+    private float heading;
+
 }
