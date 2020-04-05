@@ -1,12 +1,15 @@
 package io.taaja.blueracoon.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import io.taaja.models.generic.Coordinates;
 import lombok.Data;
+import org.mongojack.Id;
 
 import java.util.List;
 
 @Data
+@JsonIgnoreProperties({"_id"})
 public class DeDroneMessage {
 
     private MessageChannel channel;

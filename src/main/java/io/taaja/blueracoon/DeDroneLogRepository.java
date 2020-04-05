@@ -1,9 +1,10 @@
 package io.taaja.blueracoon;
 
+import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoClient;
+import com.mongodb.client.model.Filters;
 import io.quarkus.runtime.StartupEvent;
 import io.taaja.blueracoon.model.DeDroneLogMessage;
-import io.taaja.blueracoon.model.DeDroneMessage;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.mongojack.JacksonMongoCollection;
 
@@ -30,6 +31,16 @@ public class DeDroneLogRepository {
     }
 
     public void insertOne(Object deDroneMessage){
-        this.deDroneLogMessageJacksonMongoCollection.insertOne(deDroneMessage);
+        this.deDroneLogMessageJacksonMongoCollection.insertOne(
+                new DeDroneLogMessage(deDroneMessage)
+        );
+    }
+
+    public FindIterable<Object> getLogs(){
+        return this.deDroneLogMessageJacksonMongoCollection.find();
+    }
+
+    public Object getLog(String logId) {
+        return this.deDroneLogMessageJacksonMongoCollection.find(Filters.eq("_id", logId)).first();
     }
 }

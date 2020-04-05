@@ -10,12 +10,12 @@ import java.util.UUID;
 public class DeDroneLogMessage {
 
     @Id
-    private String id;
+    private String _id;
     private Object originalDeDroneMessage;
     private Date created;
 
     public DeDroneLogMessage(){
-        this.id = UUID.randomUUID().toString();
+        this._id = UUID.randomUUID().toString();
         this.created = new Date();
     }
 
