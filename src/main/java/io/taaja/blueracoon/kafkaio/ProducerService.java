@@ -29,7 +29,7 @@ public class ProducerService {
     @Inject
     CoordinatesToIDService coordinatesToIDService;
 
-    private static Producer<Long, PartialUpdate> kafkaProducer;
+    private Producer<Long, PartialUpdate> kafkaProducer;
 
     @ConfigProperty(name = "kafka.bootstrap-servers")
     public String bootstrapServers = "46.101.136.244:9092";
@@ -62,7 +62,7 @@ public class ProducerService {
 
         this.kafkaProducer.send(
             new ProducerRecord<>(
-                    Topics.SPATIAL_EXTENSION_LIFE_DATA_TOPIC_PREFIX + areaUUID,
+                Topics.SPATIAL_EXTENSION_LIFE_DATA_TOPIC_PREFIX + areaUUID,
                 new PartialUpdate(
                         vehicleUUID,
                         new PositionUpdate(coordinates)

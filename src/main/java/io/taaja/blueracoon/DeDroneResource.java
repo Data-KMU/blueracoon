@@ -63,15 +63,16 @@ public class DeDroneResource {
      * Safes the deDrone message in the log DB
      *
      * @param rawDeDroneMessage
+     * @param tag
      * @return
      */
     @POST
     @Path("/log")
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response sensorServerWithLog(Object rawDeDroneMessage){
+    public Response sensorServerWithLog(Object rawDeDroneMessage, @QueryParam("tag") String tag){
 
         //log message
-        this.deDroneLogRepository.insertOne(rawDeDroneMessage);
+        this.deDroneLogRepository.insertOne(rawDeDroneMessage, tag);
 
         DeDroneMessage deDroneMessage = this.objectMapper.convertValue(rawDeDroneMessage, DeDroneMessage.class);
 

@@ -13,16 +13,17 @@ public class DeDroneLogMessage {
     private String _id;
     private Object originalDeDroneMessage;
     private Date created;
+    private String tag;
 
-    public DeDroneLogMessage(){
-        this._id = UUID.randomUUID().toString();
-        this.created = new Date();
-    }
-
-    public DeDroneLogMessage(Object deDroneMessage){
+    public DeDroneLogMessage(Object deDroneMessage, String tag){
+        this();
+        this.setTag(tag);
         this.setOriginalDeDroneMessage(deDroneMessage);
     }
 
-
+    public DeDroneLogMessage(){
+        this.set_id(UUID.randomUUID().toString());
+        this.setCreated(new Date());
+    }
 
 }

@@ -30,9 +30,9 @@ public class DeDroneLogRepository {
                 .build(this.mongoClient, this.database, "deDroneLog", Object.class);
     }
 
-    public void insertOne(Object deDroneMessage){
+    public void insertOne(Object deDroneMessage, String tag){
         this.deDroneLogMessageJacksonMongoCollection.insertOne(
-                new DeDroneLogMessage(deDroneMessage)
+                new DeDroneLogMessage(deDroneMessage, tag)
         );
     }
 
