@@ -5,7 +5,7 @@ kafka:
   bootstrap-servers: "46.101.136.244:9092"
 
 purple-tiger:
-  url: "http://purpletiger:8093/v1/encode"
+  url: "http://purpletiger:8093/v1/encode/position"
 
 quarkus:
   http:
@@ -20,7 +20,7 @@ quarkus:
     database: "dev-taaja"
 
   purple-tiger:
-    url: "http://localhost:8093/v1/encode"
+    url: "http://localhost:8093/v1/encode/position"
 
   quarkus:
     mongodb:
@@ -31,7 +31,7 @@ quarkus:
     database: "test-taaja"
 
   purple-tiger:
-    url: "http://localhost:8093/v1/encode"
+    url: "http://localhost:8093/v1/encode/position"
 
   quarkus:
     mongodb:

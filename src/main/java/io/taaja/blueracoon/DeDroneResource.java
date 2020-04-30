@@ -71,6 +71,10 @@ public class DeDroneResource {
     @Consumes(MediaType.APPLICATION_JSON)
     public Response sensorServerWithLog(Object rawDeDroneMessage, @QueryParam("tag") String tag){
 
+        if("disabled".equals(tag)){
+            return Response.ok().build();
+        }
+
         //log message
         this.deDroneLogRepository.insertOne(rawDeDroneMessage, tag);
 
