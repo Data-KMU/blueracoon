@@ -5,6 +5,7 @@ import com.mongodb.client.MongoClient;
 import com.mongodb.client.model.Filters;
 import io.quarkus.runtime.StartupEvent;
 import io.taaja.blueracoon.model.DeDroneLogMessage;
+import org.bson.UuidRepresentation;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.mongojack.JacksonMongoCollection;
 
@@ -27,7 +28,7 @@ public class DeDroneLogRepository {
     void onStart(@Observes StartupEvent ev) {
         deDroneLogMessageJacksonMongoCollection = JacksonMongoCollection
                 .builder()
-                .build(this.mongoClient, this.database, "deDroneLog", Object.class);
+                .build(this.mongoClient, this.database, "deDroneLog", Object.class, UuidRepresentation.STANDARD);
     }
 
     public void insertOne(Object deDroneMessage, String tag){

@@ -4,7 +4,7 @@ package io.taaja.blueracoon;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.quarkus.runtime.StartupEvent;
 import io.taaja.models.generic.Coordinates;
-import io.taaja.models.spatial.info.LocationInformation;
+import io.taaja.models.generic.LocationInformation;
 import lombok.SneakyThrows;
 import lombok.extern.jbosslog.JBossLog;
 import org.apache.http.HttpResponse;
@@ -54,7 +54,7 @@ public class CoordinatesToIDService {
                 LocationInformation.class
         );
 
-        return locationInformation.getExtensions().get(0).getId();
+        return locationInformation.getSpatialEntities().get(0).getId();
     }
 
 }

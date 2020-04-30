@@ -3,11 +3,11 @@ package io.taaja.blueracoon.kafkaio;
 import io.quarkus.runtime.ShutdownEvent;
 import io.quarkus.runtime.StartupEvent;
 import io.taaja.blueracoon.CoordinatesToIDService;
-import io.taaja.messaging.JacksonSerializer;
-import io.taaja.messaging.Topics;
+import io.taaja.kafka.JacksonSerializer;
+import io.taaja.kafka.Topics;
 import io.taaja.models.generic.Coordinates;
-import io.taaja.models.spatial.data.update.PartialUpdate;
-import io.taaja.models.spatial.data.update.actuator.PositionUpdate;
+import io.taaja.models.message.data.update.SpatialDataUpdate;
+import io.taaja.models.message.data.update.actuator.PositionUpdate;
 import lombok.extern.jbosslog.JBossLog;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.Producer;
@@ -29,7 +29,7 @@ public class ProducerService {
     @Inject
     CoordinatesToIDService coordinatesToIDService;
 
-    private Producer<Long, PartialUpdate> kafkaProducer;
+    private Producer<Long, SpatialDataUpdate> kafkaProducer;
 
     @ConfigProperty(name = "kafka.bootstrap-servers")
     public String bootstrapServers = "46.101.136.244:9092";
@@ -63,7 +63,7 @@ public class ProducerService {
         this.kafkaProducer.send(
             new ProducerRecord<>(
                 Topics.SPATIAL_EXTENSION_LIFE_DATA_TOPIC_PREFIX + areaUUID,
-                new PartialUpdate(
+                new SpatialDataUpdate(
                         vehicleUUID,
                         new PositionUpdate(coordinates)
                 )
