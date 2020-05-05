@@ -13,7 +13,7 @@ import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.Producer;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.clients.producer.ProducerRecord;
-import org.apache.kafka.common.serialization.LongSerializer;
+import org.apache.kafka.common.serialization.StringSerializer;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -29,7 +29,7 @@ public class ProducerService {
     @Inject
     CoordinatesToIDService coordinatesToIDService;
 
-    private Producer<Long, SpatialDataUpdate> kafkaProducer;
+    private Producer<String, SpatialDataUpdate> kafkaProducer;
 
     @ConfigProperty(name = "kafka.bootstrap-servers")
     public String bootstrapServers = "46.101.136.244:9092";
@@ -39,7 +39,7 @@ public class ProducerService {
         producerProperties.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServers);
         producerProperties.put(ProducerConfig.CLIENT_ID_CONFIG, UUID.randomUUID().toString());
 
-        this.kafkaProducer = new KafkaProducer(producerProperties, new LongSerializer(), new JacksonSerializer());
+        this.kafkaProducer = new KafkaProducer(producerProperties, new StringSerializer(), new JacksonSerializer());
     }
 
     void onStop(@Observes ShutdownEvent ev) {

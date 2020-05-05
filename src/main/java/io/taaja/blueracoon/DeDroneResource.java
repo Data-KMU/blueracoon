@@ -129,7 +129,7 @@ public class DeDroneResource {
     @Path("/log/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public Object getLog(@PathParam("id") String id){
-        return this.deDroneLogRepository.getLog(id);
+        return this.deDroneLogRepository.findByIdOrException(id);
     }
 
 
