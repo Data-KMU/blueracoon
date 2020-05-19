@@ -1,6 +1,6 @@
 app:
   database: "taaja"
-  fileBuffer: false
+  file-buffer: false
 
 kafka:
   bootstrap-servers: "46.101.136.244:9092"
