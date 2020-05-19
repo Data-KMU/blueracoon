@@ -15,5 +15,6 @@ public class Detection {
     private int detectionId;
     private PositionStateType positionState;
     private float heading;
+    private float speed;
 
 }

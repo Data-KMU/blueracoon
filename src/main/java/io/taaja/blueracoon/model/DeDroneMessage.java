@@ -30,9 +30,9 @@ public class DeDroneMessage {
 
                 for(Coordinates coordinates : positions){
 
-                    longitudeSum += coordinates.getAltitude();
+                    altitudeSum += coordinates.getAltitude();
                     latitudeSum += coordinates.getLatitude();
-                    altitudeSum += coordinates.getLongitude();
+                    longitudeSum += coordinates.getLongitude();
 
                 }
 

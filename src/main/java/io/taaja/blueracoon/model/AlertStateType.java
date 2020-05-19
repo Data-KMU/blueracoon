@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonValue;
 public enum AlertStateType {
 
     Start("start"),
+    End("end"),
     Update("update");
 
     private final String value;
