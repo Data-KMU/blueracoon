@@ -8,10 +8,13 @@ import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mongodb.client.FindIterable;
 import io.quarkus.runtime.StartupEvent;
-import io.taaja.blueracoon.kafkaio.ProducerService;
+import io.taaja.blueracoon.services.IntersectingExtensionsService;
+import io.taaja.blueracoon.services.KafkaProducerService;
 import io.taaja.blueracoon.model.DeDroneLogMessage;
 import io.taaja.blueracoon.model.DeDroneMessage;
 import io.taaja.models.generic.Coordinates;
+import io.taaja.models.generic.LocationInformation;
+import io.taaja.models.message.data.update.impl.PositionUpdate;
 import lombok.SneakyThrows;
 import lombok.extern.jbosslog.JBossLog;
 import org.apache.commons.io.FileUtils;
@@ -26,10 +29,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.zip.Deflater;
 import java.util.zip.ZipEntry;
@@ -40,10 +40,13 @@ import java.util.zip.ZipOutputStream;
 public class DeDroneResource {
 
     @Inject
-    ProducerService producerService;
+    KafkaProducerService kafkaProducerService;
 
     @Inject
     DeDroneLogRepository deDroneLogRepository;
+
+    @Inject
+    IntersectingExtensionsService intersectingExtensionsService;
 
     private ObjectMapper objectMapper;
 
@@ -63,15 +66,17 @@ public class DeDroneResource {
         String vehicleId = this.getVehicleIdFromDeDroneMessage(deDroneMessage);
 
         //todo: rework
-        Coordinates fromDeDroneMessage = deDroneMessage.getCoordinates();
+        Coordinates coordinates = deDroneMessage.getCoordinates();
 
-        if(fromDeDroneMessage == null) {
+        if(coordinates == null) {
             log.info("DeDrone Message without Position was skipped");
         }else{
             log.info("Publish DeDrone Coordinates");
-            producerService.publishCoordinatesFromVehicle(
-                vehicleId,
-                fromDeDroneMessage
+            LocationInformation locationInformation = this.intersectingExtensionsService.calculate(coordinates.getLongitude(), coordinates.getLatitude(), coordinates.getAltitude());
+
+            kafkaProducerService.publish(
+                PositionUpdate.createPositionUpdate(vehicleId, coordinates),
+                locationInformation.getSpatialEntities()
             );
 
         }
@@ -168,7 +173,8 @@ public class DeDroneResource {
         }
 
         ZipOutputStream zipOutputStream = new ZipOutputStream(outputStream);
-        zipOutputStream.setLevel(Deflater.BEST_COMPRESSION);
+//        zipOutputStream.setLevel(Deflater.BEST_COMPRESSION);
+        zipOutputStream.setLevel(Deflater.BEST_SPEED);
         JsonFactory jsonFactory = new JsonFactory();
         jsonFactory.configure(JsonGenerator.Feature.AUTO_CLOSE_TARGET, false);
         jsonFactory.configure(JsonParser.Feature.AUTO_CLOSE_SOURCE, false);
@@ -188,7 +194,7 @@ public class DeDroneResource {
                 zipOutputStream.putNextEntry(
                         new ZipEntry(tag + "/" + deDroneLogMessage.getCreated().getTime() + ".json")
                 );
-                notClosingMapper.writeValue(zipOutputStream, deDroneLogMessage);
+                notClosingMapper.writeValue(zipOutputStream, deDroneLogMessage.getOriginalDeDroneMessage());
                 processed++;
             }catch (IllegalArgumentException iae){
                 log.warn("cant parse log: " + iae.getMessage(), iae);
@@ -214,7 +220,7 @@ public class DeDroneResource {
             returnObj = byteArrayOutputStream.toByteArray();
         }
 
-        log.info("Size  " + size / 1024 + " kb");
+        log.info("Size " + size / 1024 + " kb");
         Response.ResponseBuilder response = Response.ok(returnObj);
         response.header("Content-Disposition", "attachment; filename=\"logs.zip\"");
         response.header("Content-Length", size);
