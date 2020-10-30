@@ -1,0 +1,11 @@
+openapi: 3.0.1
+info:
+  title: Blue Racoon
+  description: Provides HTTP interface for DeDrone
+  version: "1.3"
+
+servers:
+  - url: http://localhost:8090/
+    description: local dev
+  - url: http://blueracoon.taaja.io/
+    description: production

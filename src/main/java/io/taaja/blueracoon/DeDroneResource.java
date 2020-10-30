@@ -19,6 +19,7 @@ import lombok.SneakyThrows;
 import lombok.extern.jbosslog.JBossLog;
 import org.apache.commons.io.FileUtils;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
+import org.eclipse.microprofile.openapi.annotations.Operation;
 
 import javax.enterprise.event.Observes;
 import javax.inject.Inject;
@@ -60,6 +61,8 @@ public class DeDroneResource {
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
+    @Operation(summary = "Processes a DeDrone Messaage",
+            description = "If the message contains coordinates from a Vehicle, it is published to Kafka")
     public Response sensorServer(DeDroneMessage deDroneMessage){
 
         //deDroneMessage welche Drohnen ID?
@@ -94,6 +97,8 @@ public class DeDroneResource {
     @POST
     @Path("/log")
     @Consumes(MediaType.APPLICATION_JSON)
+    @Operation(summary = "Persists and stores a DeDrone message",
+            description = "Persists a raw DeDrone Message into the Log-DB. after that it is parsed into a DeDroneMessage Object and is passed to the /v1/dedrone POST method")
     public Response sensorServerWithLog(Object rawDeDroneMessage, @QueryParam("tag") String tag){
 
         if("disabled".equals(tag)){
@@ -116,35 +121,35 @@ public class DeDroneResource {
     }
 
 
-    /**
-     * Iterate thru logs an check if the DeDrone Message can be parsed.
-     * Use to evaluate the model
-     * @return
-     */
-    @PATCH
-    @Path("/log")
-    @Produces(MediaType.APPLICATION_JSON)
-    public List<String> checkLogs(){
-        FindIterable<Object> logs = this.deDroneLogRepository.getLogs();
-        List<String> res = new ArrayList<>();
-        for (Object currentLog : logs){
-            try {
-                //check if DeDroneLogMessage
-                try{
-                    DeDroneLogMessage deDroneLogMessage = this.objectMapper.convertValue(currentLog, DeDroneLogMessage.class);
-                    currentLog = deDroneLogMessage.getOriginalDeDroneMessage();
-                }catch (IllegalArgumentException iae){}
-
-                this.objectMapper.convertValue(currentLog, DeDroneMessage.class);
-
-            }catch (Exception e){
-                String msg = "can't parse message because " + e.getMessage();
-                res.add(msg);
-                log.error(msg, e);
-            }
-        }
-        return res;
-    }
+//    /**
+//     * Iterate thru logs an check if the DeDrone Message can be parsed.
+//     * Use to evaluate the model
+//     * @return
+//     */
+//    @PATCH
+//    @Path("/log")
+//    @Produces(MediaType.APPLICATION_JSON)
+//    public List<String> checkLogs(){
+//        FindIterable<Object> logs = this.deDroneLogRepository.getLogs();
+//        List<String> res = new ArrayList<>();
+//        for (Object currentLog : logs){
+//            try {
+//                //check if DeDroneLogMessage
+//                try{
+//                    DeDroneLogMessage deDroneLogMessage = this.objectMapper.convertValue(currentLog, DeDroneLogMessage.class);
+//                    currentLog = deDroneLogMessage.getOriginalDeDroneMessage();
+//                }catch (IllegalArgumentException iae){}
+//
+//                this.objectMapper.convertValue(currentLog, DeDroneMessage.class);
+//
+//            }catch (Exception e){
+//                String msg = "can't parse message because " + e.getMessage();
+//                res.add(msg);
+//                log.error(msg, e);
+//            }
+//        }
+//        return res;
+//    }
 
     /**
      * returns the log as  zip.
@@ -154,6 +159,7 @@ public class DeDroneResource {
     @Path("/allLog")
     @Produces("application/zip")
     @SneakyThrows
+    @Operation(summary = "Compresses all saved logs and returns them via zip")
     public Response getLog(){
 
         FindIterable<Object> logs = this.deDroneLogRepository.getLogs();
