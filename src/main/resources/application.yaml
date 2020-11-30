@@ -3,7 +3,7 @@ app:
   file-buffer: false
 
 kafka:
-  bootstrap-servers: "46.101.136.244:9092"
+  bootstrap-servers: "193.26.156.80:9092"
 
 services.purple-tiger:
   timeout: 3000
