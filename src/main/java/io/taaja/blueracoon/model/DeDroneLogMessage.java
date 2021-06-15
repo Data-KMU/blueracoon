@@ -11,14 +11,16 @@ public class DeDroneLogMessage {
 
     @Id
     private String _id;
-    private Object originalDeDroneMessage;
+    private String originalDeDroneMessage;
+    private Object parsedDeDroneMessage;
     private Date created;
     private String tag;
 
-    public DeDroneLogMessage(Object deDroneMessage, String tag){
+    public DeDroneLogMessage(String originalDeDroneMessage,  Object parsedDeDroneMessage, String tag){
         this();
         this.setTag(tag);
-        this.setOriginalDeDroneMessage(deDroneMessage);
+        this.setParsedDeDroneMessage(parsedDeDroneMessage);
+        this.setOriginalDeDroneMessage(originalDeDroneMessage);
     }
 
     public DeDroneLogMessage(){

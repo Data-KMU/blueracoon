@@ -15,8 +15,8 @@ public class DeDroneLogRepository  extends AbstractRepository<Object> {
         super("deDroneLog", Object.class);
     }
 
-    public void insertOne(Object deDroneMessage, String tag){
-        this.insertOne(new DeDroneLogMessage(deDroneMessage, tag));
+    public void insertOne(String rawMessage, Object deDroneMessage, String tag){
+        this.insertOne(new DeDroneLogMessage(rawMessage, deDroneMessage, tag));
     }
 
     public FindIterable<Object> getLogs(){

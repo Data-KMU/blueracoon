@@ -5,9 +5,10 @@ app:
 kafka:
   bootstrap-servers: "136.243.131.9:9092"
 
-services.purple-tiger:
-  timeout: 3000
-  url: "https://purpletiger.taaja.io"
+services:
+  purple-tiger:
+    timeout: 3000
+    url: "https://purpletiger.taaja.io"
 
 quarkus:
   http:
@@ -20,13 +21,8 @@ quarkus:
 
 
 "%dev":
-  kafka:
-    bootstrap-servers: "193.26.156.80:9092"
   app:
     database: "dev-taaja"
-
-  services.purple-tiger:
-    url: "http://localhost:8093"
 
   quarkus:
     swagger-ui:

@@ -5,6 +5,7 @@ package io.taaja.blueracoon;
 import com.fasterxml.jackson.core.JsonFactory;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mongodb.client.FindIterable;
 import io.quarkus.runtime.StartupEvent;
@@ -99,17 +100,22 @@ public class DeDroneResource {
     @Consumes(MediaType.APPLICATION_JSON)
     @Operation(summary = "Persists and stores a DeDrone message",
             description = "Persists a raw DeDrone Message into the Log-DB. after that it is parsed into a DeDroneMessage Object and is passed to the /v1/dedrone POST method")
-    public Response sensorServerWithLog(Object rawDeDroneMessage, @QueryParam("tag") String tag){
+    public Response sensorServerWithLog(String rawDeDroneMessage, @QueryParam("tag") String tag) throws JsonProcessingException {
 
         if("disabled".equals(tag)){
-            log.info("skipping. log and processing disabled");
+            log.debug("skipping. log and processing disabled");
             return Response.ok().build();
         }
 
         //log message
-        this.deDroneLogRepository.insertOne(rawDeDroneMessage, tag);
-
-        DeDroneMessage deDroneMessage = this.objectMapper.convertValue(rawDeDroneMessage, DeDroneMessage.class);
+        DeDroneMessage deDroneMessage = null;
+        try{
+            deDroneMessage = this.objectMapper.readValue(rawDeDroneMessage, DeDroneMessage.class);
+            this.deDroneLogRepository.insertOne(null, deDroneMessage, tag);
+        }catch (Exception e){
+            this.deDroneLogRepository.insertOne(rawDeDroneMessage, null, tag);
+            throw e;
+        }
 
         return this.sensorServer(deDroneMessage);
     }

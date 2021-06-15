@@ -1,0 +1,44 @@
+{
+  "channel": "alert",
+  "version": 3,
+  "data": {
+    "alertId": "5d77941ffa50637e98ca5845",
+    "alertState": "update",
+    "detections": [
+      {
+        "detectionType": "drone",
+        "level": 100,
+        "positions": [
+          {
+          "latitude": 47.1450937486428,
+          "longitude": 10.746424403404385,
+          "altitude": 1100
+          }
+        ],
+        "sensors": [
+          "DR03001929B3001530W"
+        ],
+        "identification": {
+          "detectionType": "drone",
+          "manufacturer": "DJI",
+          "protocol": "Wi-Fi"
+        },
+        "detectionId": 3
+      }
+    ],
+    "directions": {},
+    "zones": [],
+    "affectedSensors": {
+      "DR03001929B3001530W": {
+        "type": "wifi",
+        "coordinates": {
+          "latitude": 47.5839863,
+          "longitude": 12.17302,
+          "altitude": 0.0
+        },
+        "heading": 290.0
+      }
+    },
+    "version": "3"
+  }
+}
