@@ -4,7 +4,8 @@ import com.fasterxml.jackson.annotation.JsonValue;
 
 public enum PositionStateType {
 
-    Alive("ALIVE");
+    Alive("ALIVE"),
+    Stale("STALE");
 
     private final String value;
 
