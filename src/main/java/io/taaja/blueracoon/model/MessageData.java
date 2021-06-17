@@ -17,4 +17,5 @@ public class MessageData {
     private Map<String, AffectedSensor> sensors;
     private String version;
     private Object zones;
+    private Object currentZones;
 }

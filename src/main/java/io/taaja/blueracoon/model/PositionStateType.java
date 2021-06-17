@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonValue;
 public enum PositionStateType {
 
     Alive("ALIVE"),
+    TimedOut("TIMED_OUT"),
     Stale("STALE");
 
     private final String value;

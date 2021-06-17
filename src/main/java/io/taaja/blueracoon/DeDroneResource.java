@@ -6,6 +6,7 @@ import com.fasterxml.jackson.core.JsonFactory;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mongodb.client.FindIterable;
 import io.quarkus.runtime.StartupEvent;
@@ -31,8 +32,9 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.zip.Deflater;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
@@ -238,6 +240,61 @@ public class DeDroneResource {
         response.header("Content-Length", size);
 
         return response.build();
+    }
+
+    /**
+     * returns the log as  zip.
+     * @return  {@link DeDroneLogMessage} or {@link DeDroneMessage}
+     */
+    @GET
+    @Path("/checkLogs")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Operation(summary = "Check all logs")
+    public Object checkLog(final @QueryParam("holdOnDebug") Boolean holdOnDebug, final @QueryParam("ignoreMissingProperties") Boolean ignoreMissingProperties){
+
+        if(ignoreMissingProperties != null && ignoreMissingProperties){
+            this.objectMapper =  this.objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+        }
+
+        FindIterable<Object> logs = this.deDroneLogRepository.getLogs();
+
+        List<String> parsingErrors = new LinkedList<>();
+        List<String> messagesWithCoordinateId = new LinkedList<>();
+        int countHasCoordinates = 0;
+        int processedTotal = 0;
+        for (final Object currentLogObject: logs){
+            final DeDroneLogMessage deDroneLogMessage = this.objectMapper.convertValue(currentLogObject, DeDroneLogMessage.class);
+
+            try{
+                String originalDeDroneMessage = deDroneLogMessage.getOriginalDeDroneMessage();
+                if(originalDeDroneMessage != null){
+                    DeDroneMessage deDroneMessage =  this.objectMapper.readValue(originalDeDroneMessage, DeDroneMessage.class);
+                    if(deDroneMessage.getCoordinates() != null){
+                        countHasCoordinates++;
+                        messagesWithCoordinateId.add(deDroneLogMessage.get_id());
+                    }
+                }
+            }catch (final Exception e){
+                if(holdOnDebug != null && holdOnDebug){
+                    return Map.of(
+                            "error", e,
+                            "object", deDroneLogMessage.getOriginalDeDroneMessage()
+                    );
+                }else{
+                    parsingErrors.add(e.getMessage());
+                }
+            }
+
+            processedTotal++;
+
+        }
+
+        return Map.of(
+                "countProcessedTotal", processedTotal,
+                "parsingErrors", parsingErrors,
+                "countHasCoordinates", countHasCoordinates,
+                "messagesWithCoordinateId", messagesWithCoordinateId
+        );
     }
 
 

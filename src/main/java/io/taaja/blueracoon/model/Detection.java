@@ -16,5 +16,8 @@ public class Detection {
     private PositionStateType positionState;
     private float heading;
     private float speed;
+    private String rating;
+    private Object bearings;
+    private float uncertainty;
 
 }
